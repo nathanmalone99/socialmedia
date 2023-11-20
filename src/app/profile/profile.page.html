@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Profile
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      Profile Details
+    </ion-card-header>
+    <ion-card-content>
+      <!-- Display user information here -->
+      <ion-label>Name: {{ userProfile.name }}</ion-label>
+      <ion-label>Email: {{ userProfile.email }}</ion-label>
+      <!-- Add more profile details as needed -->
+
+      <!-- Display user's profile picture -->
+      <div *ngIf="downloadURL">
+        <img [src]="downloadURL" alt="Profile Picture">
+      </div>
+
+      <!-- Allow users to upload a profile picture -->
+      <input type="file" (change)="onFileSelected($event)">
+      <ion-button (click)="changeProfilePicture()">Change Profile Picture</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

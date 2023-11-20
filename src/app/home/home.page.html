@@ -1,20 +1,48 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>
-      Blank
+      Social Media App
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/profile">Go to Profile</ion-button>
+      <ion-button routerLink="/signup">
+        Signup
+      </ion-button>
+      <ion-button routerLink="/login">
+        Login
+      </ion-button>
+      <ion-button routerLink="/friend">
+        Search
+      </ion-button>
+    </ion-buttons>
+    
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <!-- Feed Section -->
+  <ion-card *ngFor="let post of posts">
+    <ion-card-header>
+      <ion-avatar slot="start">
+        <img src="{{ post.avatar }}">
+      </ion-avatar>
+      <ion-card-title>{{ post.username }}</ion-card-title>
+      <ion-card-subtitle>{{ post.timestamp | date:'medium' }}</ion-card-subtitle>
+    </ion-card-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+    <ion-card-content>
+      {{ post.content }}
+    </ion-card-content>
+
+    <!-- You can customize this section for comments, likes, etc. -->
+    <ion-item>
+      <ion-icon name="heart" slot="start"></ion-icon>
+      <ion-label>{{ post.likes }} Likes</ion-label>
+
+      <ion-icon name="chatbubble" slot="end"></ion-icon>
+      <ion-label>{{ post.comments }} Comments</ion-label>
+    </ion-item>
+  </ion-card>
+
+  <!-- Add more sections as needed (e.g., suggested friends, trending topics, etc.) -->
 </ion-content>

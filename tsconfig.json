@@ -1,8 +1,7 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src", // Adjusted the baseUrl to be relative to the tsconfig.json file
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -22,6 +21,12 @@
       "es2018", 
       "dom"
     ],
+    "paths": {
+      "@angular/*": ["./node_modules/@angular/*"],
+      "rxjs/*": ["./node_modules/rxjs/*"],
+      "@angular/fire": ["./node_modules/@angular/fire"],
+      "firebase": ["./node_modules/firebase"]
+    },
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
