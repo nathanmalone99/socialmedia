@@ -1,31 +1,44 @@
-import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Injectable, InjectionToken } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+
+export const FRIEND_SERVICE_TOKEN = new InjectionToken('FRIEND_SERVICE_TOKEN');
 
 @Injectable({
   providedIn: 'root',
 })
 export class FriendService {
-  constructor(private firestore: AngularFirestore) {}
+  private loggedInUser: any;
+  private usersCollection: AngularFirestoreCollection<any>;
 
-  sendFriendRequest(senderId: string, recipientId: string): void {
-    const senderRef = this.firestore.collection('users').doc(senderId);
-    const recipientRef = this.firestore.collection('users').doc(recipientId);
-
-    senderRef.collection('friendRequests').doc(recipientId).set({ status: 'pending' });
-    recipientRef.collection('incomingFriendRequests').doc(senderId).set({ status: 'pending' });
+  constructor(private firestore: AngularFirestore) {
+    this.usersCollection = this.firestore.collection('users');
   }
 
-  searchUsers(query: string): any {
-    return this.firestore.collection('users', ref =>
-      ref.where('Identifier', '>=', query.toLowerCase()).where('Identifier', '<=', query.toLowerCase() + '\uf8ff')
-    ).valueChanges().pipe(
-      catchError(error => {
-        console.error('Error searching users:', error);
-        return of([]); // Return an empty array in case of an error
-      })
-    );
+  setLoggedInUser(user: any): void {
+    this.loggedInUser = user;
   }
-  
+
+  getLoggedInUser(): any {
+    return this.loggedInUser;
+  }
+
+  async updateUserProfile(user: any): Promise<void> {
+    const userRef = this.usersCollection.doc(user.uid);
+    return userRef.set({
+      displayName: user.displayName,
+      email: user.email,
+      // Other fields...
+    });
+  }
+
+  async searchUsers(query: string): Promise<any[]> {
+    const results = await this.usersCollection.ref
+      .where('displayName', '>=', query)
+      .where('displayName', '<=', query + '\uf8ff')
+      .get();
+
+    return results.docs.map((doc) => doc.data());
+  }
 }

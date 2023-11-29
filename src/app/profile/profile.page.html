@@ -13,8 +13,12 @@
     </ion-card-header>
     <ion-card-content>
       <!-- Display user information here -->
-      <ion-label>Name: {{ userProfile.name }}</ion-label>
-      <ion-label>Email: {{ userProfile.email }}</ion-label>
+      <ion-item>
+        <ion-label>Name: {{ userProfile.firstName }} {{ userProfile.lastName }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Email: {{ userProfile.email }}</ion-label>
+      </ion-item>
       <!-- Add more profile details as needed -->
 
       <!-- Display user's profile picture -->
@@ -23,8 +27,32 @@
       </div>
 
       <!-- Allow users to upload a profile picture -->
-      <input type="file" (change)="onFileSelected($event)">
-      <ion-button (click)="changeProfilePicture()">Change Profile Picture</ion-button>
+      <ion-item>
+        <ion-label>Change Profile Picture</ion-label>
+        <input type="file" (change)="onFileSelected($event)">
+        <ion-button (click)="changeProfilePicture()">Upload</ion-button>
+      </ion-item>
+
+      <!-- Editable fields for user profile information -->
+      <ion-item>
+        <ion-label position="floating">Username</ion-label>
+        <ion-input [(ngModel)]="userProfile.username" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">First Name</ion-label>
+        <ion-input [(ngModel)]="userProfile.firstName" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Last Name</ion-label>
+        <ion-input [(ngModel)]="userProfile.lastName" type="text"></ion-input>
+      </ion-item>
+
+      <!-- Add more editable fields as needed -->
+
+      <!-- Button to update profile information -->
+      <ion-button (click)="updateProfile()">Update Profile</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

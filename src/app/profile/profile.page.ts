@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs/operators';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +16,7 @@ export class ProfilePage {
   selectedImage: File | null = null; // Variable to store the selected image file
   downloadURL: string | null = null; 
 
-  constructor(private afAuth: AngularFireAuth, private storage: AngularFireStorage) {}
+  constructor(private afAuth: AngularFireAuth, private storage: AngularFireStorage, private firestore: AngularFirestore) {}
 
   ionViewDidEnter() {
     // Fetch user profile information when the view is entered
@@ -26,13 +28,28 @@ export class ProfilePage {
     const user = await this.afAuth.currentUser;
     if (user) {
       this.userProfile = {
-        name: user.displayName,
+        username: '',
+        firstName: '',
+        lastName: '',
         email: user.email,
         // Add more profile details as needed
       };
 
       // Load user's profile picture
       this.loadProfilePicture(user.uid);
+    }
+  }
+
+  async updateProfile() {
+    const user = await this.afAuth.currentUser;
+    if (user) {
+      const userRef = this.firestore.collection('users').doc(user.uid);
+      await userRef.update({
+        username: this.userProfile.username,
+        firstName: this.userProfile.firstName,
+        lastName: this.userProfile.lastName,
+        // Add more fields as needed
+      });
     }
   }
 

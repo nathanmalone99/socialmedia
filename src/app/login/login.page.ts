@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import { FriendService } from 'app/friend.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginPage {
   email: string = '';
   password: string = '';
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) {}
+  constructor(private afAuth: AngularFireAuth, private router: Router, private friendService: FriendService) {}
 
   async login() {
     try {
@@ -20,14 +21,21 @@ export class LoginPage {
         this.email,
         this.password
       );
+
       // User logged in successfully
       console.log('User logged in:', userCredential.user);
+
+      // Fetch user profile details and store them in the service
+      const userProfile = await this.friendService.searchUsers(this.email);
+      this.friendService.setLoggedInUser(userProfile[0]);
+
       // Navigate to the main content of your app (e.g., home page)
       this.router.navigate(['/home']);
     } catch (error) {
       console.error('Error logging in:', error);
     }
   }
+
   isLoggedIn(): boolean {
     return !!this.afAuth.currentUser; // Returns true if the user is logged in
   }

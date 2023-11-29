@@ -7,5 +7,21 @@
     <ion-label position="floating">Password</ion-label>
     <ion-input [(ngModel)]="password" type="password"></ion-input>
   </ion-item>
+  <!-- Add new input fields for additional data -->
+  <ion-item>
+    <ion-label position="floating">Username</ion-label>
+    <ion-input [(ngModel)]="username" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">First Name</ion-label>
+    <ion-input [(ngModel)]="firstName" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Last Name</ion-label>
+    <ion-input [(ngModel)]="lastName" type="text"></ion-input>
+  </ion-item>
+
+  <!-- Other input fields as needed -->
+
   <ion-button expand="full" (click)="signup()">Sign Up</ion-button>
 </ion-content>

@@ -1,25 +1,12 @@
-
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Friends
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
   <ion-searchbar [(ngModel)]="searchQuery" (ionChange)="searchUsers()"></ion-searchbar>
 
-  <ion-list *ngIf="(searchResults$ | async) as searchResults">
+  <ion-list *ngIf="searchResults.length > 0">
     <ion-item *ngFor="let user of searchResults">
-      {{ user.Identifier }}
-      <ion-button slot="end" (click)="sendFriendRequest(user.UserUID)">Add Friend</ion-button>
-    </ion-item>
-    <div *ngIf="searchResults.length === 0 && searchQuery !== ''">
-      No users found.
-    </div>
+      {{ user.email }}
+      </ion-item>
   </ion-list>
-  
+
   <div *ngIf="searchResults.length === 0 && searchQuery !== ''">
     No users found.
   </div>

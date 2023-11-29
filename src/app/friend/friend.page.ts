@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FriendService } from '../friend.service';
 import { Observable } from 'rxjs';
+import { FRIEND_SERVICE_TOKEN } from '../friend.service';
+
 
 interface User {
   Identifier: string;
@@ -13,25 +15,35 @@ interface User {
   templateUrl: './friend.page.html',
   styleUrls: ['./friend.page.scss'],
 })
-export class FriendPage {
+export class FriendPage implements OnInit {
 
-  
-
-  userId: string = 'MutVFJIp8zdSgsgHpVV49FBPuoS2'; 
+  userId: string = 'MutVFJIp8zdSgsgHpVV49FBPuoS2';
   searchQuery: string = '';
   searchResults: any[] = [];
 
-  constructor(private friendService: FriendService) {}
+  constructor(@Inject(FRIEND_SERVICE_TOKEN) private friendService: FriendService) {}
 
-  searchUsers(): void {
-    this.friendService.searchUsers(this.searchQuery).subscribe((results: any[]) => {
-      this.searchResults = results;
-    });
+  ngOnInit(): void {
+    // Fetch the logged-in user details when the component initializes
+    const loggedInUser = this.friendService.getLoggedInUser();
+
+    if (loggedInUser) {
+      this.userId = loggedInUser.UserUID;
+      // Perform other actions with the logged-in user details if needed
+    }
+    // Initialize any variables here
+    this.searchQuery = ''; // You can set a default value if needed
+    this.searchUsers(); // Call the search method if needed on component initialization
   }
 
-  sendFriendRequest(recipientId: string): void {
-    this.friendService.sendFriendRequest(this.userId, recipientId);
+  async searchUsers(): Promise<void> {
+    console.log('Search Query:', this.searchQuery);
+
+    this.searchResults = await this.friendService.searchUsers(this.searchQuery);
+    console.log('Search Results:', this.searchResults);
   }
 
-  searchResults$: Observable<User[]> = this.friendService.searchUsers(this.searchQuery);
+  async updateUserProfile(user: any): Promise<void> {
+    await this.friendService.updateUserProfile(user);
+  }
 }
