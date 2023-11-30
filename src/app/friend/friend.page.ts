@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FriendService } from '../friend.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { FRIEND_SERVICE_TOKEN } from '../friend.service';
+import { debounceTime } from 'rxjs/operators';
 
 
 interface User {
@@ -17,9 +18,12 @@ interface User {
 })
 export class FriendPage implements OnInit {
 
-  userId: string = 'MutVFJIp8zdSgsgHpVV49FBPuoS2';
+  userId: string = '';
   searchQuery: string = '';
   searchResults: any[] = [];
+
+  // Introduce a Subject to handle debounce
+  private searchSubject: Subject<string> = new Subject<string>();
 
   constructor(@Inject(FRIEND_SERVICE_TOKEN) private friendService: FriendService) {}
 
@@ -33,7 +37,16 @@ export class FriendPage implements OnInit {
     }
     // Initialize any variables here
     this.searchQuery = ''; // You can set a default value if needed
-    this.searchUsers(); // Call the search method if needed on component initialization
+
+    // Apply debounce time and subscribe to the searchSubject
+    this.searchSubject.pipe(debounceTime(300)).subscribe(() => {
+      this.searchUsers();
+    });
+  }
+
+  // Trigger search when searchQuery changes after a small delay
+  onSearchChange(): void {
+    this.searchSubject.next('');
   }
 
   async searchUsers(): Promise<void> {

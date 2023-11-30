@@ -27,18 +27,19 @@ export class FriendService {
   async updateUserProfile(user: any): Promise<void> {
     const userRef = this.usersCollection.doc(user.uid);
     return userRef.set({
-      displayName: user.displayName,
-      email: user.email,
-      // Other fields...
+      username: user.username, 
+      email: user.email
     });
   }
 
   async searchUsers(query: string): Promise<any[]> {
     const results = await this.usersCollection.ref
-      .where('displayName', '>=', query)
-      .where('displayName', '<=', query + '\uf8ff')
+      .where('username', '>=', query)
+      .where('username', '>=', query)
       .get();
 
     return results.docs.map((doc) => doc.data());
   }
+
+  
 }

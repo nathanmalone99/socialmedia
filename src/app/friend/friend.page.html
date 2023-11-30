@@ -1,9 +1,9 @@
 <ion-content>
-  <ion-searchbar [(ngModel)]="searchQuery" (ionChange)="searchUsers()"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="searchQuery" (ionChange)="onSearchChange()"></ion-searchbar>
 
   <ion-list *ngIf="searchResults.length > 0">
     <ion-item *ngFor="let user of searchResults">
-      {{ user.email }}
+      {{ user.username }}
       </ion-item>
   </ion-list>
 
