@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { LoginPage } from 'app/login/login.page';
-import { NavbarPage } from 'app/navbar/navbar.page';
+import { LoginPage } from 'app/components/login/login.page';
+import { NavbarPage } from 'app/components/navbar/navbar.page';
 
 @Component({
   selector: 'app-home',

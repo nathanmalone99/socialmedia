@@ -4,6 +4,7 @@
   <ion-list *ngIf="searchResults.length > 0">
     <ion-item *ngFor="let user of searchResults">
       {{ user.username }}
+      <ion-button (click)="sendFriendRequest(user.UserUID)">Send Friend Request</ion-button>
       </ion-item>
   </ion-list>
 

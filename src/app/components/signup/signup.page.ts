@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import { FriendService } from 'app/friend.service';
+import { FriendService } from '../../services/friend.service';
 
 @Component({
   selector: 'app-signup',

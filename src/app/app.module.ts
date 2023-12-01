@@ -14,7 +14,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { FRIEND_SERVICE_TOKEN, FriendService } from './friend.service';
+import { FRIEND_SERVICE_TOKEN, FriendService } from './services/friend.service';
 
 @NgModule({
   declarations: [AppComponent], 

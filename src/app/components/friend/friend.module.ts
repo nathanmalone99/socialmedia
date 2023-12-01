@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { FRIEND_REQUEST_SERVICE_TOKEN, FriendRequestService } from '../../services/friend-request.service';
+
 
 import { IonicModule } from '@ionic/angular';
 
@@ -17,6 +19,10 @@ import { FriendPage } from './friend.page';
     HttpClientModule,
     IonicModule,
     FriendPageRoutingModule
+  ],
+  providers: [
+    // ... other services
+    { provide: FRIEND_REQUEST_SERVICE_TOKEN, useClass: FriendRequestService },
   ],
   declarations: [FriendPage]
 })

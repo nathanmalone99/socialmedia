@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FriendService } from '../friend.service';
 import { Observable, Subject } from 'rxjs';
-import { FRIEND_SERVICE_TOKEN } from '../friend.service';
+import { FriendService, FRIEND_SERVICE_TOKEN } from '../../services/friend.service';
 import { debounceTime } from 'rxjs/operators';
+import { FRIEND_REQUEST_SERVICE_TOKEN, FriendRequestService } from '../../services/friend-request.service';
 
 
 interface User {
@@ -25,7 +25,7 @@ export class FriendPage implements OnInit {
   // Introduce a Subject to handle debounce
   private searchSubject: Subject<string> = new Subject<string>();
 
-  constructor(@Inject(FRIEND_SERVICE_TOKEN) private friendService: FriendService) {}
+  constructor(@Inject(FRIEND_SERVICE_TOKEN) private friendService: FriendService, @Inject(FRIEND_REQUEST_SERVICE_TOKEN) private friendRequestService: FriendRequestService) {}
 
   ngOnInit(): void {
     // Fetch the logged-in user details when the component initializes
@@ -58,5 +58,15 @@ export class FriendPage implements OnInit {
 
   async updateUserProfile(user: any): Promise<void> {
     await this.friendService.updateUserProfile(user);
+  }
+
+  async sendFriendRequest(receiverUid: string): Promise<void> {
+    const senderUid = this.userId;
+
+    console.log('Sender UID:', senderUid);
+    console.log('Receiver UID:', receiverUid);
+
+    await this.friendRequestService.sendFriendRequest(senderUid, receiverUid);
+    console.log('Friend request sent!');
   }
 }
