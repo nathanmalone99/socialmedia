@@ -10,8 +10,6 @@ import { NavbarPage } from 'app/components/navbar/navbar.page';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  rootPage = NavbarPage;
-
 
   posts = [
     {
@@ -30,7 +28,6 @@ export class HomePage {
       likes: 15,
       comments: 8,
     },
-    // Add more sample posts as needed
   ];
 
   

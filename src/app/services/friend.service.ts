@@ -9,21 +9,21 @@ export const FRIEND_SERVICE_TOKEN = new InjectionToken('FRIEND_SERVICE_TOKEN');
   providedIn: 'root',
 })
 export class FriendService {
+
   private loggedInUser: any;
   private usersCollection: AngularFirestoreCollection<any>;
 
-  constructor(private firestore: AngularFirestore) {
-    this.usersCollection = this.firestore.collection('users');
-  }
+  constructor(private firestore: AngularFirestore) { this.usersCollection = this.firestore.collection('users'); }
 
   setLoggedInUser(user: any): void {
     this.loggedInUser = user;
+    console.log('Set Logged-in User:', this.loggedInUser);
   }
 
-  getLoggedInUser(): any {
-    return this.loggedInUser;
-  }
-
+  getLoggedInUser(): Promise<any> {
+    return Promise.resolve(this.loggedInUser); // Return the user immediately if available
+}
+  
   async updateUserProfile(user: any): Promise<void> {
     const userRef = this.usersCollection.doc(user.uid);
     return userRef.set({

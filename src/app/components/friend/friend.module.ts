@@ -21,7 +21,6 @@ import { FriendPage } from './friend.page';
     FriendPageRoutingModule
   ],
   providers: [
-    // ... other services
     { provide: FRIEND_REQUEST_SERVICE_TOKEN, useClass: FriendRequestService },
   ],
   declarations: [FriendPage]

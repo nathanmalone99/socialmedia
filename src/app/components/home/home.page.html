@@ -15,12 +15,13 @@
         Search
       </ion-button>
     </ion-buttons>
-    
   </ion-toolbar>
 </ion-header>
 
+
+
+
 <ion-content>
-  <!-- Feed Section -->
   <ion-card *ngFor="let post of posts">
     <ion-card-header>
       <ion-avatar slot="start">
@@ -33,8 +34,6 @@
     <ion-card-content>
       {{ post.content }}
     </ion-card-content>
-
-    <!-- You can customize this section for comments, likes, etc. -->
     <ion-item>
       <ion-icon name="heart" slot="start"></ion-icon>
       <ion-label>{{ post.likes }} Likes</ion-label>
@@ -43,6 +42,4 @@
       <ion-label>{{ post.comments }} Comments</ion-label>
     </ion-item>
   </ion-card>
-
-  <!-- Add more sections as needed (e.g., suggested friends, trending topics, etc.) -->
 </ion-content>

@@ -39,7 +39,6 @@ export class SignupPage {
           firstName: this.firstName,
           lastName: this.lastName,
           email: user.email,
-          // Add more fields as needed
         });
   
         // Navigate to another page or perform other actions

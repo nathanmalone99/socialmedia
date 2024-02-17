@@ -12,28 +12,23 @@
       Profile Details
     </ion-card-header>
     <ion-card-content>
-      <!-- Display user information here -->
       <ion-item>
         <ion-label>Name: {{ userProfile.firstName }} {{ userProfile.lastName }}</ion-label>
       </ion-item>
       <ion-item>
         <ion-label>Email: {{ userProfile.email }}</ion-label>
       </ion-item>
-      <!-- Add more profile details as needed -->
 
-      <!-- Display user's profile picture -->
       <div *ngIf="downloadURL">
         <img [src]="downloadURL" alt="Profile Picture">
       </div>
 
-      <!-- Allow users to upload a profile picture -->
       <ion-item>
         <ion-label>Change Profile Picture</ion-label>
         <input type="file" (change)="onFileSelected($event)">
         <ion-button (click)="changeProfilePicture()">Upload</ion-button>
       </ion-item>
 
-      <!-- Editable fields for user profile information -->
       <ion-item>
         <ion-label position="floating">Username</ion-label>
         <ion-input [(ngModel)]="userProfile.username" type="text"></ion-input>
@@ -48,11 +43,49 @@
         <ion-label position="floating">Last Name</ion-label>
         <ion-input [(ngModel)]="userProfile.lastName" type="text"></ion-input>
       </ion-item>
-
-      <!-- Add more editable fields as needed -->
-
-      <!-- Button to update profile information -->
-      <ion-button (click)="updateProfile()">Update Profile</ion-button>
     </ion-card-content>
   </ion-card>
+
+<ion-card>
+  <ion-card-header>
+    Create Text Post
+  </ion-card-header>
+  <ion-card-content>
+    <ion-item>
+      <ion-input [(ngModel)]="postText" placeholder="Write your text post..." type="text"></ion-input>
+    </ion-item>
+    <ion-button (click)="createTextPost()">Post</ion-button>
+  </ion-card-content>
+</ion-card>
+
+<ion-card>
+  <ion-card-header>
+    Create Image Post
+  </ion-card-header>
+  <ion-card-content>
+    <ion-item>
+      <ion-label>Choose Image</ion-label>
+      <input type="file" (change)="onImageSelected($event)">
+    </ion-item>
+    <ion-button (click)="createImagePost()">Post</ion-button>
+  </ion-card-content>
+</ion-card>
+
+<ion-card *ngFor="let post of textPosts">
+  <ion-card-header>
+  </ion-card-header>
+  <ion-card-content>
+    {{ post.text }}
+  </ion-card-content>
+</ion-card>
+
+<ion-card *ngFor="let post of imagePosts">
+  <ion-card-header>
+  </ion-card-header>
+  <ion-card-content>
+    <img [src]="post.imageURL" alt="Image Post">
+  </ion-card-content>
+</ion-card>
+
+  <ion-button (click)="updateProfile()">Update Profile</ion-button>
 </ion-content>

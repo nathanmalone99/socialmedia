@@ -16,10 +16,8 @@ export class FriendRequestService {
     this.friendRequestsCollection = this.firestore.collection('friendRequests');
   }
 
-  // FriendRequestService (friend-request.service.ts)
   sendFriendRequest(senderUid: string, receiverUid: string): Promise<DocumentReference<any>> {
     if (!senderUid || !receiverUid) {
-      // Handle the case where senderUid or receiverUid is undefined
       return Promise.reject(new Error('Invalid senderUid or receiverUid'));
     }
     return this.friendRequestsCollection.add({

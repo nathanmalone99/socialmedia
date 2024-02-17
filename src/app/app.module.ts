@@ -20,7 +20,7 @@ import { FRIEND_SERVICE_TOKEN, FriendService } from './services/friend.service';
   declarations: [AppComponent], 
   imports: [
     BrowserModule,
-    [HttpClientModule],
+    HttpClientModule,
     IonicModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,

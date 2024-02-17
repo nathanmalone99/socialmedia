@@ -21,14 +21,16 @@ export class LoginPage {
         this.email,
         this.password
       );
-
+  
       // User logged in successfully
       console.log('User logged in:', userCredential.user);
-
+  
       // Fetch user profile details and store them in the service
-      const userProfile = await this.friendService.searchUsers(this.email);
-      this.friendService.setLoggedInUser(userProfile[0]);
+      this.friendService.setLoggedInUser(userCredential.user);
 
+      console.log('Service Logged-in User:', this.friendService.getLoggedInUser());
+
+  
       // Navigate to the main content of your app (e.g., home page)
       this.router.navigate(['/home']);
     } catch (error) {

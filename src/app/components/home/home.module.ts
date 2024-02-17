@@ -3,16 +3,17 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
-import { NavbarPage } from 'app/components/navbar/navbar.page';
-import { LoginPage } from 'app/components/login/login.page';
+
 
 import { HomePageRoutingModule } from './home-routing.module';
+import { NavbarPageModule } from '../navbar/navbar.module';
 
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    //NavbarPageModule,
     IonicModule,
     HomePageRoutingModule
   ],
